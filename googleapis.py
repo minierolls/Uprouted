@@ -2,7 +2,7 @@ import requests
 import json
 import polyline
 
-api_key = "AIzaSyA1Q4JBPQM-NY4RBL9QWHDwFoIV8Ayj3Jo"
+api_key = ""
 
 # Get current location coordinates
 geo_r = requests.post("https://www.googleapis.com/geolocation/v1/geolocate?key={}".format(api_key)).json()
