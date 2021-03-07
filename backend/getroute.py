@@ -18,14 +18,13 @@ def getDirections(origin, dest, mode):
         for step in leg["steps"]:
             line = polyline.decode(step["polyline"]["points"], geojson=True)
             coord_list += line
-    #geojson_line = geojson.LineString(coord_list)
 
     # distance in meters, time in seconds
     return (distance, time, coord_list)
 
 def getRoute(distance, mode, destination="Return", origin="Current Location"):
 
-    distance = distance * 1600 # convert to meters
+    distance = distance * 1000 # convert to meters
     radius = distance / 2
     coord_list = []
     curr_dist = 0
@@ -59,9 +58,13 @@ def getRoute(distance, mode, destination="Return", origin="Current Location"):
     start_placeid = False
     visited = []
     places = []
+    success = True 
     threshold = 1.1
     while True:
         if len(visited) == len(nearby_r["results"]):
+            if threshold > 1.5:
+                success = False
+                break
             threshold *= 1.1
             visited = []
             places = []
@@ -93,12 +96,13 @@ def getRoute(distance, mode, destination="Return", origin="Current Location"):
                     break
         start = dest
         start_placeid = True
-    coord_list = geojson.LineString(coord_list)
-    curr_dist /= 1600
-    time /= 60
-    
-    print(curr_dist, time, places, threshold)
-        
+    if success:
+        coord_list = geojson.LineString(coord_list)
+        curr_dist /= 1000
+        time /= 60
+        print(curr_dist, curr_time, places)
+        return (curr_dist, curr_time, coord_list)
+
 
 if __name__ == '__main__':
-    getRoute(3, "walking", origin="6231 Penn Ave Pittsburgh PA 15206")
+    getRoute(5, "walking", origin="5000 Forbes Ave Pittsburgh PA 15206")
