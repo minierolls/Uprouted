@@ -27,7 +27,7 @@
 
 <a href="/profile"><img src="/images/vector/back.svg" alt="Go back"/></a>
 <main>
-  <h1>History</h1>
+  <h1>Favorites</h1>
   {#each routes as {name, distance}}
     <Route {name} {distance}/>
   {/each}
