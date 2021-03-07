@@ -99,7 +99,7 @@ def getRoute(distance, mode, destination="Return", origin="Current Location"):
     if success:
         coord_list = geojson.LineString(coord_list)
         curr_dist /= 1000
-        time /= 60
+        curr_time /= 60
         print(curr_dist, curr_time, places)
         return (curr_dist, curr_time, coord_list)
 
