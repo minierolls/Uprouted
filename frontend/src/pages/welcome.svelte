@@ -1,4 +1,6 @@
 <script>
+  import { goto, url } from '@roxi/routify';
+
   // idk why im parsing this anew on each page
   const user = JSON.parse(sessionStorage.getItem('user'));
   // just use these to construct an URL or something to get the request you want
@@ -6,6 +8,19 @@
   let distance; // stores distance desired
   let startLocation; // desired start location
   let endLocation; // desired end location
+
+  function storeResponseData(data) {
+    sessionStorage.setItem("current_route", JSON.stringify(data["route"]));
+    sessionStorage.setItem("estimated_distance", data["estimated_distance"]);
+    sessionStorage.setItem("estimated_time", data["estimated_time"]);
+  }
+
+  function startRoute(mode) {
+    fetch($url('/getroute/' + String(distance) + '/' + mode + '/' + startLocation + '/' + endLocation))
+      .then(response => response.json())
+      .then(data => storeResponseData(data))
+      .then(() => $goto('/index'));
+  }
 </script>
 
 <style>
@@ -172,24 +187,24 @@
   </div>
   <label id="time">
     <p>Kilometers</p>
-    <input type="number" bind:this={distance} step="0.1" />
+    <input type="number" bind:value={distance} step="0.1" />
   </label>
   <div id="locations">
     <label>
       <strong>Start:</strong>
-      <input bind:this={startLocation}/>
+      <input bind:value={startLocation}/>
     </label>
     <label>
       <strong>End:</strong>
-      <input bind:this={endLocation}/>
+      <input bind:value={endLocation}/>
     </label>
   </div>
 </div>
 <div id="select">
-  <button>
+  <button on:click={() => startRoute("walking")}>
     <img src="/images/vector/running.svg" alt="Running"/>
   </button>
-  <button>
+  <button on:click={() => startRoute("biking")}>
     <img src="/images/vector/bicycle.svg" alt="Biking"/>
   </button>
 </div>

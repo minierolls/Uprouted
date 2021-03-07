@@ -1,10 +1,29 @@
 <script>
   import Route from '../components/Route.svelte';
 
-  const routes = [
+  const user = JSON.parse(sessionStorage.getItem('user'));
+
+  let routes = [
     {name: 'Some route', distance: '2.5km'},
     {name: 'Another one', distance: '99km'},
   ];
+
+  function setHistory(data) {
+    routes = [];
+    for (index = 0; index < data["history"].length; index++) {
+      current_history_route = data["history"][index];
+      routes.push({
+        name: current_history_route.name,
+        distance: current_history_route.estimated_distance
+      });
+    }
+  }
+
+  onMount(() => {
+    fetch($url('/loadhistory/' + user.name))
+      .then(response => response.json())
+      .then(data => setHistory(data));
+  });
 </script>
 
 <style>
