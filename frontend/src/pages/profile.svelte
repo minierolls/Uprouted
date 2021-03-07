@@ -1,17 +1,23 @@
 <script>
   import Friend from '../components/Friend.svelte';
+
+  const user = JSON.parse(sessionStorage.getItem('user'));
 </script>
 
 <style>
   main {
     max-width: 80rem;
     margin: 0 auto;
-
   }
   img {
     display: block;
   }
   #picture {
+    #nav {
+      padding: 2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
     #profile-pic {
       width: 10rem;
       height: 10rem;
@@ -25,27 +31,30 @@
       font-size: 28px;
       margin: 0;
     }
-    padding-top: 4rem;
     padding-bottom: 3rem;
     background-color: $jade;
     border-radius: 0 0 $radius $radius;
     margin-bottom: 2rem;
+    box-shadow: $shadow;
   }
   #buttons {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-gap: 2rem;
     margin: 2rem;
-    button {
-      cursor: pointer;
-      height: 12rem;
+    a {
+      box-shadow: $shadow;
+      text-decoration: none;
+      height: 9rem;
+      text-align: center;
       background-color: $orange;
       border-radius: $radius;
       border: none;
       color: white;
       font-size: 24px;
+      display: flex;
+      place-content: center;
       img {
-        margin: 1rem auto;
         max-width: 60%;
         width: 5rem;
       }
@@ -60,6 +69,7 @@
     white-space: nowrap;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    box-shadow: $shadow;
     &::-webkit-scrollbar { 
       display: none;
     }
@@ -78,6 +88,7 @@
   #friends {
     margin: 2rem;
     button {
+      box-shadow: $shadow;
       cursor: pointer;
       background-color: $jade;
       border: 0;
@@ -96,18 +107,19 @@
 
 <main>
   <div id="picture">
-    <img id="profile-pic" src="/images/einstein.jpg" alt="Albert Einstein"/>
-    <h1>Albert Einstein</h1>
+    <div id="nav">
+      <a href="/"><img src="/images/vector/close.svg"/></a>
+    </div>
+    <img id="profile-pic" src={user.picture} alt={user.name}>
+    <h1>{user.name}</h1>
   </div>
   <div id="buttons">
-    <button>
+    <a href="/favorites">
       <img src="/images/vector/heart.svg" alt="Heart Icon">
-      Favorites
-    </button>
-    <button>
+    </a>
+    <a href="/history">
       <img src="/images/vector/route.svg" alt="Route Icon">
-      History
-    </button>
+    </a>
   </div>
   <div id="badges">
     <div class="badge">
@@ -123,8 +135,9 @@
   <div id="friends">
     <button>Add Friends</button>
     <div id="friends-list">
-      <Friend name="Marie Curie" picture="/images/curie.jpg" />
-      <Friend name="Stephen Hawking" picture="/images/hawking.jpg" />
+      {#each user.friends as { name, picture }}
+        <Friend {name} {picture} />
+      {/each}
     </div>
   </div>
 </main>

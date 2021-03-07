@@ -8,11 +8,12 @@
     margin: 2rem 0;
     background-color: $lightgray;
     border-radius: $radius;
-    padding: 1rem;
+    padding: 0.75rem;
     display: grid;
-    grid-gap: 2rem;
-    grid-template-columns: minmax(10%, 7rem) 1fr;
+    grid-gap: 1rem;
+    grid-template-columns: minmax(4rem, 10%) 1fr;
     align-items: center;
+    box-shadow: $shadow;
     img {
       width: 100%;
       border-radius: $radius;
@@ -23,5 +24,5 @@
 
 <div>
   <img src={picture} alt={name} />
-  <h2>{name}</h2>
+  <h3>{name}</h3>
 </div>
