@@ -187,9 +187,9 @@
 </div>
 <div id="select">
   <button>
-    <img src="/images/vector/running.svg"/>
+    <img src="/images/vector/running.svg" alt="Running"/>
   </button>
   <button>
-    <img src="/images/vector/bicycle.svg"/>
+    <img src="/images/vector/bicycle.svg" alt="Biking"/>
   </button>
 </div>

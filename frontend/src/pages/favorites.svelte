@@ -19,7 +19,7 @@
   }
 </style>
 
-<a href="/profile"><img src="/images/vector/back.svg"/></a>
+<a href="/profile"><img src="/images/vector/back.svg" alt="Go back"/></a>
 <main>
   <h1>Favorites</h1>
   <Route name="Some route" distance="2.5km"/>

@@ -108,7 +108,7 @@
 <main>
   <div id="picture">
     <div id="nav">
-      <a href="/"><img src="/images/vector/close.svg"/></a>
+      <a href="/"><img src="/images/vector/close.svg" alt="Go back"/></a>
     </div>
     <img id="profile-pic" src={user.picture} alt={user.name}>
     <h1>{user.name}</h1>
