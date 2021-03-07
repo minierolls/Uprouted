@@ -3,7 +3,7 @@
 
   const routes = [
     {name: 'Some route', distance: '2.5km'},
-    {name: 'This one sucked', distance: '0.1km'},
+    {name: 'Another one', distance: '99km'},
   ];
 </script>
 
@@ -32,4 +32,3 @@
     <Route {name} {distance}/>
   {/each}
 </main>
-
